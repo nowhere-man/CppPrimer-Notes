@@ -1,0 +1,98 @@
+[TOC]
+# 特殊工具
+
+## tuple
++ tuple是一个快速而随意的数据结构。
++ 一个tuple可以有任意数量的成员，每个确定的tuple类型的成员数目是固定的。
++ tuple相关函数：
+    ```cpp
+    // 所有成员进行值初始化
+    tuple<T1, T2, ..., Tn> t;
+
+    // 此构造函数是explicit的
+    tuple<T1, T2, ...,Tn> t(v1, v2, ..., vn);
+
+    // 返回一个tuple
+    make_tuple(v1, v2, ..., vn);
+
+    // 返回t的第i个数据成员的引用,t是左值返回左值引用，t是右值，返回右值引用
+    get<i>(t);
+    ```
+
+## bitset
+
++ bitset是一个类模板，具有固定的大小。
+    ```cpp
+    // 全0，此构造函数是一个constexpr的。
+    bitset<n> b;
+
+    // b是unsigned long long 值u的低n位的拷贝，高位置0或被丢弃，此构造函数是一个constexpr的
+    bitset<n> b(u);
+
+    // b是string s从位置pos开始m个字符的拷贝，s只能包含字符zero或one，默认位'0'和'1'
+    bitset<n> b(s, pos, m, zero, one);
+    ```
++ 当用一个整型值来初始化bitset时，此值被转换为unsigned long long类型并被当作位模式来处理。
+
++ bitset操作
+    ```cpp
+    b.any();
+    b.all();
+    b.none();
+
+    // b中置位的位数
+    b.count();
+    // 返回b中的位数，constexpr函数
+    b.size();
+
+    b.test(pos);
+
+    b.set(pos, v);
+    b.set();
+
+    b.reset(pos);
+    b.reset();
+
+    b.flip(pos);
+    b.flip();
+
+    b[pos];
+    b.to_ulong();
+    b.to_ullong()
+    b.to_string(zero = '0', one = '1');
+    os << b;
+    is >> b;
+    ```
+## 正则表达式
+```cpp
+#include <regex>
+
+string pattern("a[b|B]c");
+regex re(pattern);
+//定义一个对象保存搜索结果
+smatch result;
+string test = "abc";
+
+// 寻找第一个与正则表达式匹配的子序列
+if(regex_search(test, result, re)) {
+    cout << result.str();
+}
+
+// TODO
+```
+
+## 命名空间
++ 防止名字冲突。
++ 定义：
+    ```cpp
+    namespace cpp_primer {
+        class A {
+
+        };
+        class B {
+
+        };
+    } // 没有分号
+    ```
++ 一个命名空间就是一个作用域。
++ 命名空间可以定义在不同的部分。
